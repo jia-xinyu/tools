@@ -9,6 +9,7 @@ This repository collects some useful development tools.
 * `UDP` : UDP communication protocol (C++, Python)
 * `CSV` : csv file writer/reader (C++)
 * `TXT` : csv, txt file reader (Python)
+* `Filters` : digital filters (MATLAB)
 
 ## UDP
 Before testing UDP on PC and Teensy, set the former as a client that sends Teensy's IP. The computer's own IP must be different from that in client.c.
@@ -51,9 +52,19 @@ sudo g++ read.cpp -o read -lm
 
 * `plot_joint.py` - txt reader
 
+## Filters
+
+* First-order low/high pass filter
+
+* Second-order command filter
+
+* Second-order Butterworth filter
+
+* One-dimensional Kalman filter
+
 ## Notes
 
-* For the permission error, run
+* For the permission error when running Python files in Linux, run
 ```
 sudo chmod u+x ./tools -R
 ```
