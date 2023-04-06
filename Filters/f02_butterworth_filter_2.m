@@ -1,19 +1,19 @@
-% Second Order Butterworth Filter (Low Pass)
-% Input: nowData = raw data
-% Output: nowOutData = filtered data
+% Second Order Butterworth Filter (Low Pass，[Error])
+% Input: inData = raw data; Q = quality factor
+% Output: outData = filtered data
 function [outData] = f02_butterworth_filter_2(inData, cutoff_freq, dt, Q)
 persistent b0 b1 b2 a1 a2 x1 x2 y1 y2 C
 if isempty(C)
     fc = cutoff_freq;   % cutoff frequency (Hz) 
     fs = 1/dt;          % sample frequency (Hz)
-    omega_c = 2 * pi * fc / fs;     % Normalized cutoff frequency
+    omega_c = 2 * pi * fc / fs;         % Normalized cutoff frequency
     alpha = sin(omega_c) / (2 * Q);
     
     b0 = 1/(1 + 2*alpha + 4*alpha^2);
     b1 = 2*b0;
     b2 = b0;
     a1 = 2*(1 - 2*alpha^2)*b0;
-    a2 = (1 - 2*alpha + 4*alpha^2)*b0;     % [TO DO] if has "-"
+    a2 = (1 - 2*alpha + 4*alpha^2)*b0;	% [TO DO] confirm if has "-"
     
     x1 = 0; x2 = 0;
     y1 = 0; y2 = 0; 

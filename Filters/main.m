@@ -1,27 +1,23 @@
 % Test filters
 % Author: Jia, Xinyu
-% Last modified: 2023/4/4
+% Last modified: 2023/4/6
 
 %% Initialization
 clear all;close all;clc
 fs = 500;                   % sample frequency
 dt = 1/fs;
-N  = 1000;                   % number
+N  = 1000;               	% number
 t = (0:N-1)*dt;
 delta_f = 1*fs/N;
-f1 = 50;
+f1 = 10;
 f2 = 100;
-f3 = 200;
-f4 = 300;
 x1 = 0.5*sin(2*pi*f1*t);
 x2 = 0.2*sin(2*pi*f2*t);
-x3 = 0.3*sin(2*pi*f3*t);
-x4 = 0.6*sin(2*pi*f4*t);
-x5 = 0.2*randn(size(t));            % Gaussian noise
-input = x1 + x2 + x3 + x4 + x5;     % raw data
+x3 = 0.2*randn(size(t));	% Gaussian noise
+input = x1 + x2 + x3;     	% raw data
 
-cutoff_frequency = 100;             % unit: Hz
-true_data = x1 + x2;
+cutoff_frequency = 20;      % unit: Hz
+true_data = x1;
 
 %% First Order Filter
 lpf_d1_data = zeros(N,1);
@@ -39,13 +35,13 @@ for i = 1:N
 end
 
 %% Second Order Butterworth Filter
-Q = 1;                      % quality factor
+Q = 1;                              % quality factor
 bf_data_1 = zeros(N,1);
 bf_data_2 = zeros(N,1);
-bf_data_0 = f02_butterworth_filter_0(input, cutoff_frequency, dt);  % MALAB
+bf_data_0 = f02_butterworth_filter_0(input, cutoff_frequency, dt);                  % MATLAB
 for i = 1:N
 	bf_data_1(i) = f02_butterworth_filter_1(input(i), cutoff_frequency, dt, Q, 'low');
-	bf_data_2(i) = f02_butterworth_filter_2(input(i), cutoff_frequency, dt, Q);
+	bf_data_2(i) = f02_butterworth_filter_2(input(i), cutoff_frequency, dt, Q);     % [Error]
 end
 
 %% 1-Dimension Kalman Filter
@@ -75,8 +71,8 @@ subplot(4,1,3);
 plot(t, input, 'Color', '#0072BD', 'LineWidth', 1); hold on
 plot(t, true_data, 'Color', '#77AC30', 'LineWidth', 1); hold on
 plot(t, bf_data_0, 'Color', '#000000', 'LineWidth', 1); hold on
-plot(t, bf_data_1, 'Color', '#EDB120', 'LineWidth', 1); hold on
-plot(t, bf_data_2, 'Color', '#D95319', 'LineWidth', 1); hold off
+plot(t, bf_data_1, 'Color', '#D95319', 'LineWidth', 1); hold on
+plot(t, bf_data_2, 'Color', '#EDB120', 'LineWidth', 1); hold off
 legend('raw', 'true', 'filtered_0', 'filtered_1', 'filtered_2');
 title('Second-Order Butterworth Filter');
 
