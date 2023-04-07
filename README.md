@@ -62,6 +62,10 @@ sudo g++ read.cpp -o read -lm
 
 * One-dimensional Kalman filter
 
+<div align="center">
+<img width="1500" src="Filters/doc/sim_result.png">
+</div>
+
 ## Notes
 
 * For the permission error when running Python files in Linux, run
